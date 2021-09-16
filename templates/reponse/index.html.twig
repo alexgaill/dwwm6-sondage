@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="mt-5">
+		<h1>Liste des reponses</h1>
+		<table class="table table-hover table-stripped">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Reponse</th>
+					<th>Question</th>
+					<th>Score</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for reponse in reponses %}
+					<tr>
+						<td>{{reponse.id}}</td>
+						<td>{{reponse.titre}}</td>
+						<td>{{reponse.question.titre}}</td>
+						<td>{{reponse.score}}</td>
+						<td>
+							<a href={{ path("reponse_update", {id:reponse.id}) }}>
+								<button class="btn btn-primary">Modifer</button>
+							</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td class="text-warning">Il n'y a pas de reponses pour le moment.</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+    <div class="mt-5 col-4 mx-auto">
+        {% include "reponse/_form.html.twig" %}
+    </div>
+{% endblock %}
