@@ -8,6 +8,7 @@ use App\Form\ReponseType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ReponseController extends AbstractController
@@ -20,6 +21,7 @@ class ReponseController extends AbstractController
      */
     public function index(Request $request): Response
     {
+        $this->denyAccessUnlessGranted("ROLE_ADMIN", "Acces denied", "This user can't acces");
         $reponse = new Reponse;
         $form = $this->createForm(ReponseType::class, $reponse);
 
@@ -41,7 +43,7 @@ class ReponseController extends AbstractController
 
     /**
      * @Route("/reponse/{id}/update", name="reponse_update")
-     *
+     * @IsGranted("ROLE_ADMIN")
      * @return Response
      */
     public function update (Reponse $reponse, Request $request): Response

@@ -25,12 +25,26 @@
 					<a class="navbar-brand" href={{ path("sondages")}}>Sondage</a>
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-							<li class="nav-item">
-								<a class="nav-link" href={{ path("questions") }}>Questions</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href={{ path("reponses") }}>Réponses</a>
-							</li>
+							{% if is_granted("ROLE_ADMIN") %}
+								<li class="nav-item">
+									<a class="nav-link" href={{ path("questions") }}>Questions</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href={{ path("reponses") }}>Réponses</a>
+								</li>
+							{% endif %}
+							{% if is_granted("ROLE_USER") %}
+								<li class="nav-item">
+									<a class="nav-link" href={{ path("app_logout") }}>Déconnexion</a>
+								</li>
+							{% else %}
+								<li class="nav-item">
+									<a class="nav-link" href={{ path("app_register") }}>Inscription</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href={{ path("app_login") }}>Connexion</a>
+								</li>
+							{% endif %}
                         </ul>
 					</div>
 				</div>
